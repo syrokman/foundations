@@ -1,0 +1,253 @@
+<Workflow Id="1">
+  <Name>Process-Standard</Name>
+  <Description>Simple workflow for Process Artifact</Description>
+  <States>
+    <State Id="3">
+      <Name>Ready</Name>
+    </State>
+    <State Id="4">
+      <Name>In Progress</Name>
+    </State>
+    <State Id="6">
+      <Name>Archived</Name>
+    </State>
+    <State Id="1" IsInitial="true">
+      <Name>New</Name>
+    </State>
+    <State Id="2">
+      <Name>Done</Name>
+    </State>
+    <State Id="5">
+      <Name>Ready for Test</Name>
+    </State>
+  </States>
+  <Transitions>
+    <Transition Id="4">
+      <Name>Testing Complete</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="58">
+                <Value>Done</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>Ready for Test</FromState>
+      <FromStateId>5</FromStateId>
+      <ToState>Done</ToState>
+      <ToStateId>2</ToStateId>
+    </Transition>
+    <Transition Id="5">
+      <Name>Deferred</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="59">
+                <Value>Archived</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>Ready</FromState>
+      <FromStateId>3</FromStateId>
+      <ToState>Archived</ToState>
+      <ToStateId>6</ToStateId>
+    </Transition>
+    <Transition Id="6">
+      <Name>Deferred</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="59">
+                <Value>Archived</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>In Progress</FromState>
+      <FromStateId>4</FromStateId>
+      <ToState>Archived</ToState>
+      <ToStateId>6</ToStateId>
+    </Transition>
+    <Transition Id="7">
+      <Name>Deferred</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="59">
+                <Value>Archived</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>Ready for Test</FromState>
+      <FromStateId>5</FromStateId>
+      <ToState>Archived</ToState>
+      <ToStateId>6</ToStateId>
+    </Transition>
+    <Transition Id="8">
+      <Name>Enhancement</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="54">
+                <Value>New</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>Done</FromState>
+      <FromStateId>2</FromStateId>
+      <ToState>New</ToState>
+      <ToStateId>1</ToStateId>
+    </Transition>
+    <Transition Id="9">
+      <Name>Build</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="54">
+                <Value>New</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>Archived</FromState>
+      <FromStateId>6</FromStateId>
+      <ToState>New</ToState>
+      <ToStateId>1</ToStateId>
+    </Transition>
+    <Transition Id="1">
+      <Name>To be Decomposed</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="55">
+                <Value>Ready</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+      </Triggers>
+      <FromState>New</FromState>
+      <FromStateId>1</FromStateId>
+      <ToState>Ready</ToState>
+      <ToStateId>3</ToStateId>
+    </Transition>
+    <Transition Id="2">
+      <Name>To be Developed</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="56">
+                <Value>In Progress</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+        <Trigger>
+          <GenerateAction>
+            <GenerateActionType>UserStories</GenerateActionType>
+          </GenerateAction>
+        </Trigger>
+      </Triggers>
+      <FromState>Ready</FromState>
+      <FromStateId>3</FromStateId>
+      <ToState>In Progress</ToState>
+      <ToStateId>4</ToStateId>
+    </Transition>
+    <Transition Id="3">
+      <Name>Development Complete</Name>
+      <Triggers>
+        <Trigger>
+          <PropertyChangeAction>
+            <PropertyName>WF-State</PropertyName>
+            <PropertyId>80</PropertyId>
+            <ValidValues>
+              <ValidValue Id="57">
+                <Value>Ready for Test</Value>
+              </ValidValue>
+            </ValidValues>
+          </PropertyChangeAction>
+        </Trigger>
+        <Trigger>
+          <GenerateAction>
+            <GenerateActionType>TestCases</GenerateActionType>
+          </GenerateAction>
+        </Trigger>
+      </Triggers>
+      <FromState>In Progress</FromState>
+      <FromStateId>4</FromStateId>
+      <ToState>Ready for Test</ToState>
+      <ToStateId>5</ToStateId>
+    </Transition>
+  </Transitions>
+  <Projects>
+    <Project Id="10">
+      <ArtifactTypes>
+        <ArtifactType Id="21">
+          <Name>Process</Name>
+        </ArtifactType>
+      </ArtifactTypes>
+    </Project>
+    <Project Id="28">
+      <ArtifactTypes>
+        <ArtifactType Id="21">
+          <Name>Process</Name>
+        </ArtifactType>
+      </ArtifactTypes>
+    </Project>
+    <Project Id="31">
+      <ArtifactTypes>
+        <ArtifactType Id="21">
+          <Name>Process</Name>
+        </ArtifactType>
+      </ArtifactTypes>
+    </Project>
+    <Project Id="405">
+      <ArtifactTypes>
+        <ArtifactType Id="21">
+          <Name>Process</Name>
+        </ArtifactType>
+      </ArtifactTypes>
+    </Project>
+    <Project Id="424">
+      <ArtifactTypes>
+        <ArtifactType Id="21">
+          <Name>Process</Name>
+        </ArtifactType>
+      </ArtifactTypes>
+    </Project>
+  </Projects>
+</Workflow>
